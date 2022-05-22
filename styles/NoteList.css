@@ -1,0 +1,31 @@
+.notes {
+  @apply relative;
+}
+
+.note-list {
+  @apply grid md:grid-cols-3 2xl:grid-cols-4 gap-4;
+}
+
+.note-list .note-item {
+  @apply border border-gray-200 rounded-xl;
+}
+
+.note {
+  @apply flex flex-col gap-2 p-4;
+}
+
+.note .note-header {
+  @apply px-4;
+}
+
+.note .note-footer {
+  @apply border-t border-gray-200 pt-4 mt-2;
+}
+
+.options {
+  @apply  flex gap-2 flex-wrap;
+}
+
+.fallback-message {
+  @apply  flex items-center justify-center w-full h-full min-h-[calc(100vh-20rem)];
+}

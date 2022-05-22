@@ -1,0 +1,8 @@
+.site-header {
+  @apply sticky top-6 w-full px-6 mb-6;
+}
+
+.site-header .wrapper {
+  @apply w-full bg-white bg-opacity-60 border-2 border-gray-200 border-opacity-40 m-auto max-w-5xl rounded-xl;
+  @apply backdrop-blur-lg
+}

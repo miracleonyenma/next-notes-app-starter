@@ -1,19 +1,22 @@
-import { useState } from "react";
-
 import Head from "next/head";
 
-import NotesList from "../components/NotesList";
-import Editor from "../components/Editor"
+import NotesList from "../../components/NotesList";
 
-import HomeStyles from "../styles/Home.module.css";
+import HomeStyles from "../../styles/Home.module.css";
 
-const Home = () => {
-  const [showEditor, setShowEditor] = useState(true);
+export const getServerSideProps = ({ params }) => {
+  return {
+    props: {
+      params,
+    },
+  };
+};
 
+const User = ({ params }) => {
   return (
     <>
       <Head>
-        <title>📝 Notes app</title>
+        <title>Notes app</title>
         <meta name="description" content="Notes app built with Next.js, Prisma & MongoDB" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -21,9 +24,6 @@ const Home = () => {
       <div className={HomeStyles.container}>
         <main className={HomeStyles.main}>
           <div className="wrapper m-auto max-w-8xl">
-            {/* Editor Component */}
-            {showEditor && <Editor />}
-
             {/* Note list component */}
             <NotesList />
           </div>
@@ -33,4 +33,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default User;
