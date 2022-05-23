@@ -1,4 +1,5 @@
 import Link from "next/link"
+import AuthBtn from "./AuthBtn"
 
 const SiteHeader = () => {
 
@@ -8,6 +9,8 @@ const SiteHeader = () => {
         <figure className="logo">
           <Link href={`/`} passHref={true}>📝 Notes</Link>
         </figure>
+
+        <AuthBtn />
       </div>
     </header>
   )
