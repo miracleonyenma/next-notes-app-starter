@@ -34,6 +34,10 @@ h6 {
 
 }
 
+li{
+  list-style-type: none;
+}
+
 .cta {
   @apply transition font-semibold p-2 bg-white border rounded-lg hover:scale-105 active:scale-95 active:shadow-inner disabled:grayscale disabled:pointer-events-none;
 }
@@ -44,4 +48,16 @@ h6 {
 
 .icon {
   @apply h-5 w-5 text-blue-500;
+}
+
+.dropdown {
+  @apply relative flex gap-2 items-center;
+}
+
+.dropdown-list {
+  @apply absolute top-full mt-1 right-0 bg-white border border-gray-200 rounded-lg hover:visible hover:opacity-100 shadow-lg;
+}
+
+.dropdown-btn:focus ~ .dropdown-list{
+  @apply opacity-100 visible pointer-events-auto;
 }

@@ -3,7 +3,7 @@ import { useState } from "react";
 import Head from "next/head";
 
 import NotesList from "../components/NotesList";
-import Editor from "../components/Editor"
+import Editor from "../components/Editor";
 
 import HomeStyles from "../styles/Home.module.css";
 
@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>📝 Notes app</title>
+        <title>Notes app</title>
         <meta name="description" content="Notes app built with Next.js, Prisma & MongoDB" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -87,6 +87,10 @@ and the name of the ship was the billy old tea`
 
         // clear current note state
         setCurrentNote(note);
+
+        // clear note ID & action
+        setNoteID(null)
+        setNoteAction("add")
       } catch (error) {
         console.log({ error });
       }
