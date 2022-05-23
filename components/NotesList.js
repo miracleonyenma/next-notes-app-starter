@@ -1,22 +1,26 @@
-import { useEffect, useState } from "react";
-
 import {  PencilAltIcon, TrashIcon, ExternalLinkIcon } from "@heroicons/react/solid";
 
 import { useNote, useDispatchNote, useNotes, useDispatchNotes } from "../modules/AppContext";
 
 
 const NotesList = ({ showEditor }) => {
+
+  // this is where we assign the context to constants
+  // which we will use to read and modify our global state
   const notes = useNotes();
   const setNotes = useDispatchNotes();
 
   const currentNote = useNote();
   const setCurrentNote = useDispatchNote();
 
+  // function to edit note by setting it to the currentNote state
+  // and adding the "edit" action which will then be read by the <Editor /> component
   const editNote = (note) => {
     note.action = "edit";
     setCurrentNote(note);
   };
 
+  // function to delete note by using the setNotes Dispatch notes function
   const deleteNote = (note) => {
     let confirmDelete = confirm("Do you really want to delete this note?");
     confirmDelete ? setNotes({ note, type: "remove" }) : null;

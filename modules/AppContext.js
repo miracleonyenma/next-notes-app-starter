@@ -8,6 +8,7 @@ const NotesStateContext = createContext();
 const NoteDispatchContext = createContext();
 const NotesDispatchContext = createContext();
 
+// reducer function to modify state based on action types
 const notesReducer = (state, action) => {
   // get the note object and the type of action by destructuring
   const { note, type } = action;
@@ -46,8 +47,14 @@ const notesReducer = (state, action) => {
   return state;
 };
 
+// NoteProvider, which will wrap the application
+// providing all the nested state and dispatch context
 export const NoteProvider = ({ children }) => {
+  // useState for note, to get and set a single note
   const [note, setNote] = useState({});
+
+  // use Reducer for notes, to get all notes
+  // and add, edit or remove a note from the array
   const [notes, setNotes] = useReducer(notesReducer, []);
 
   return (
@@ -61,6 +68,7 @@ export const NoteProvider = ({ children }) => {
   );
 };
 
+// export state contexts
 export const useDispatchNote = () => useContext(NoteDispatchContext);
 export const useNote = () => useContext(NoteStateContext);
 export const useDispatchNotes = () => useContext(NotesDispatchContext);
