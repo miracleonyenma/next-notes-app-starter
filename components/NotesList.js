@@ -1,10 +1,8 @@
-import {  PencilAltIcon, TrashIcon, ExternalLinkIcon } from "@heroicons/react/solid";
+import { PencilAltIcon, TrashIcon, ExternalLinkIcon } from "@heroicons/react/solid";
 
 import { useNote, useDispatchNote, useNotes, useDispatchNotes } from "../modules/AppContext";
 
-
 const NotesList = ({ showEditor }) => {
-
   // this is where we assign the context to constants
   // which we will use to read and modify our global state
   const notes = useNotes();
@@ -16,6 +14,7 @@ const NotesList = ({ showEditor }) => {
   // function to edit note by setting it to the currentNote state
   // and adding the "edit" action which will then be read by the <Editor /> component
   const editNote = (note) => {
+    console.log({ note });
     note.action = "edit";
     setCurrentNote(note);
   };

@@ -28,7 +28,7 @@ const AuthBtn = () => {
   return (
     <div className="auth-btn">
       <div className="auth-info pr-2">
-        <Image src={session.user.image} alt={session.user.name} width={30} height={30} className="rounded-full" />
+        <Image src={session.user.image} alt={session.user.name} width={24} height={24} className="rounded-full" />
         <p>Hi, {session.user.name}</p>
       </div>
 
