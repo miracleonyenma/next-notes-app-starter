@@ -4,6 +4,7 @@ import Image from "next/image";
 import { PencilAltIcon, TrashIcon, ExternalLinkIcon } from "@heroicons/react/solid";
 
 import { useNote, useDispatchNote, useNotes, useDispatchNotes } from "../modules/AppContext";
+import Link from "next/link";
 
 const NotesList = ({ retrieved_notes, showEditor }) => {
   // this is where we assign the context to constants
@@ -69,10 +70,12 @@ const NotesList = ({ retrieved_notes, showEditor }) => {
                       </button>
                     </li>
                     <li className="option">
-                      <button className="cta cta-w-icon">
-                        <ExternalLinkIcon className="icon" />
-                        <span className="">Open</span>
-                      </button>
+                      <Link href={`/note/${note.id}`} target={`_blank`} rel={`noopener`}>
+                        <button className="cta cta-w-icon">
+                          <ExternalLinkIcon className="icon" />
+                          <span className="">Open</span>
+                        </button>
+                      </Link>
                     </li>
                     <li className="option">
                       <button onClick={() => deleteNote(note)} className="cta cta-w-icon">
