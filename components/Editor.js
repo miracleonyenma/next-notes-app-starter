@@ -154,35 +154,37 @@ and the name of the ship was the billy old tea`
   }, [currentNote]);
 
   return (
-    <div className={"editor"}>
-      <div className={"wrapper"}>
-        <div className="editing-area">
-          <div className="title">
-            <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" className={"form-input"} placeholder="Title" />
+    status === "authenticated" && (
+      <div className={"editor"}>
+        <div className={"wrapper"}>
+          <div className="editing-area">
+            <div className="title">
+              <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" className={"form-input"} placeholder="Title" />
+            </div>
+            <div className="body">
+              <textarea
+                value={body}
+                onChange={(e) => updateField(e)}
+                name="note-body"
+                id="note-body"
+                className="form-textarea"
+                cols="10"
+                rows="2"
+                placeholder="Write something spec ✨"
+              ></textarea>
+            </div>
           </div>
-          <div className="body">
-            <textarea
-              value={body}
-              onChange={(e) => updateField(e)}
-              name="note-body"
-              id="note-body"
-              className="form-textarea"
-              cols="10"
-              rows="2"
-              placeholder="Write something spec ✨"
-            ></textarea>
-          </div>
+          <ul className={"options"}>
+            <li className={"option"}>
+              <button onClick={saveNote} disabled={isSaved} className="cta flex gap-2 items-end">
+                <CheckCircleIcon className="h-5 w-5 text-blue-500" />
+                <span className="">{isSaved ? "Saved" : "Save"}</span>
+              </button>
+            </li>
+          </ul>
         </div>
-        <ul className={"options"}>
-          <li className={"option"}>
-            <button onClick={saveNote} disabled={isSaved} className="cta flex gap-2 items-end">
-              <CheckCircleIcon className="h-5 w-5 text-blue-500" />
-              <span className="">{isSaved ? "Saved" : "Save"}</span>
-            </button>
-          </li>
-        </ul>
       </div>
-    </div>
+    )
   );
 };
 

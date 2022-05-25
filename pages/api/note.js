@@ -1,6 +1,6 @@
 // pages/api/note.js
 
-import { createNote, updateNote } from "../../prisma/Note";
+import { createNote, updateNote, deleteNote } from "../../prisma/Note";
 import { getSession } from "next-auth/react";
 
 export default async function handle(req, res) {
@@ -30,6 +30,15 @@ export default async function handle(req, res) {
     const note = await updateNote(id, { title, body }, session);
 
     // return updated note
+    return res.json(note);
+  }
+
+  // Run if the request is a DELETE request
+  else if (req.method == "DELETE") {
+    const { id } = req.body;
+    const note = await deleteNote(id, session);
+
+    // return deleted note
     return res.json(note);
   }
 }

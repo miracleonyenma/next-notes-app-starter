@@ -17,6 +17,10 @@ const notesReducer = (state, action) => {
   // return an array of the previous state and the note object
   if (type === "add") return [...state, note];
 
+  // if "replace"
+  // replace entire array with new value
+  if (type === "replace") return note;
+
   // if "remove"
   // remove the note object in the previous state
   // that matches the title of the current note object

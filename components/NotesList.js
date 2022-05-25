@@ -1,8 +1,11 @@
+import { useEffect } from "react";
+import Image from "next/image";
+
 import { PencilAltIcon, TrashIcon, ExternalLinkIcon } from "@heroicons/react/solid";
 
 import { useNote, useDispatchNote, useNotes, useDispatchNotes } from "../modules/AppContext";
 
-const NotesList = ({ showEditor }) => {
+const NotesList = ({ retrieved_notes, showEditor }) => {
   // this is where we assign the context to constants
   // which we will use to read and modify our global state
   const notes = useNotes();
@@ -20,10 +23,25 @@ const NotesList = ({ showEditor }) => {
   };
 
   // function to delete note by using the setNotes Dispatch notes function
-  const deleteNote = (note) => {
+  const deleteNote = async (note) => {
     let confirmDelete = confirm("Do you really want to delete this note?");
-    confirmDelete ? setNotes({ note, type: "remove" }) : null;
+    try {
+      let res = await fetch(`/api/note`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(note),
+      });
+      const deletedNote = await res.json();
+      confirmDelete ? setNotes({ note: deletedNote, type: "remove" }) : null;
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    // replace notes in notes context state
+    setNotes({ note: retrieved_notes, type: "replace" });
+  }, [retrieved_notes]);
 
   return (
     <div className="notes">
@@ -40,6 +58,10 @@ const NotesList = ({ showEditor }) => {
                 </main>
                 <footer className="note-footer">
                   <ul className="options">
+                    <li className="option">
+                      {/* add user image to note footer */}
+                      <Image src={note.user.image} alt={note.user.name} width={32} height={32} className="rounded-full" />
+                    </li>
                     <li onClick={() => editNote(note)} className="option">
                       <button className="cta cta-w-icon">
                         <PencilAltIcon className="icon" />

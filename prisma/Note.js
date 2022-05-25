@@ -3,7 +3,7 @@ import prisma from "./prisma";
 
 // CREATE
 export const createNote = async (title, body, session) => {
-  const note = await prisma.note.create({
+  const newNote = await prisma.note.create({
     data: {
       title,
       body,
@@ -11,20 +11,45 @@ export const createNote = async (title, body, session) => {
     },
   });
 
+  const note = await getNoteByID(newNote.id);
+
   return note;
 };
 
 // READ
+//get unique note by id
+export const getNoteByID = async (id) => {
+  const note = await prisma.note.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      user: true,
+    },
+  });
+
+  return note;
+};
+
+// get all notes
 export const getAllNotes = async () => {
-  const notes = await prisma.note.findMany({});
+  const notes = await prisma.note.findMany({
+    include: {
+      user: true,
+    },
+  });
 
   return notes;
 };
 
+// get notes by user
 export const getAllNotesByUserID = async (id) => {
   const notes = await prisma.note.findMany({
     where: {
       userId: id,
+    },
+    include: {
+      user: true,
     },
   });
 
@@ -34,7 +59,7 @@ export const getAllNotesByUserID = async (id) => {
 // UPDATE
 export const updateNote = async (id, updatedData, session) => {
   let userId = session?.user.id;
-  const note = await prisma.note.update({
+  const updatedNote = await prisma.note.update({
     where: {
       id_userId: {
         id,
@@ -46,5 +71,23 @@ export const updateNote = async (id, updatedData, session) => {
     },
   });
 
+  const note = await getNoteByID(updatedNote.id);
+
   return note;
+};
+
+// DELETE
+export const deleteNote = async (id, session) => {
+  let userId = session?.user.id;
+
+  const deletedNote = await prisma.note.delete({
+    where: {
+      id_userId: {
+        id,
+        userId,
+      },
+    },
+  });
+
+  return deletedNote;
 };

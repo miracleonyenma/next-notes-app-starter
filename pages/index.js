@@ -1,13 +1,34 @@
 import { useState } from "react";
 
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
 import NotesList from "../components/NotesList";
 import Editor from "../components/Editor";
 
+import { getSession } from "next-auth/react";
+
+const getAllNotesByUserID = require("../prisma/Note").getAllNotesByUserID;
+
 import HomeStyles from "../styles/Home.module.css";
 
-const Home = () => {
+export const getServerSideProps = async ({ req, res }) => {
+  const session = await getSession({ req });
+
+  if (!session) {
+    res.statusCode = 403;
+    return { props: { notes: [] } };
+  }
+
+  const notes = await getAllNotesByUserID(session?.user?.id);
+  console.log({notes});
+
+  return {
+    props: { notes },
+  };
+};
+
+const Home = ({ notes }) => {
   const [showEditor, setShowEditor] = useState(true);
 
   return (
@@ -25,7 +46,7 @@ const Home = () => {
             {showEditor && <Editor />}
 
             {/* Note list component */}
-            <NotesList />
+            <NotesList retrieved_notes={notes} />
           </div>
         </main>
       </div>

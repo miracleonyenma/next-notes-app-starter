@@ -11,11 +11,15 @@
 }
 
 .note {
-  @apply flex flex-col gap-2 p-4;
+  @apply flex flex-col gap-2 h-full p-4;
 }
 
 .note .note-header {
   @apply px-4;
+}
+
+.note main {
+  @apply grow;
 }
 
 .note .note-footer {
